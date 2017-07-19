@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class item1003 {
     public static void main(String[] args){
         Scanner scanner = new Scanner(System.in);
-        Long[] mature = new Long[91];
+        long[] mature = new long[91];
         mature[0]=1l;
         mature[1]=2l;
         for(int i =1;i<90;i++){

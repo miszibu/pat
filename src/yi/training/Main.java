@@ -1,32 +1,35 @@
 package yi.training;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-import java.util.Scanner;
-public  class Main {
+public class Main {
 
-    public static int max(int a, int b) {
-        return a > b ? a : b;
-    }
-
-    public static long times(int n) {
-        if (n == 1)
-            return 0;
-        if (n < 4)
-            return 1;
-        return times(max((n + 2) / 3, n - (n + 2) / 3 * 2)) + 1;
-
-    }
-
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        String str = "";
-        while (in.hasNext()) {
-            int n = in.nextInt();
-            if (n > 0)
-                str += times(n) + "\n";
-            else
-                break;
+    public static void main(String[] args) throws IOException {
+        // TODO Auto-generated method stub
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        String S=bufferedReader.readLine();
+        bufferedReader.close();
+        int mod=1000000007;
+        int t=0;
+        int pat=0;
+        int at=0;
+        for (int i = S.length()-1; i >=0 ; i--) {
+            char ch=S.charAt(i);
+            if (ch=='T') {
+                t++;
+            }
+            if (ch=='A') {
+                at=(at+t)%mod;
+            }
+            if (ch=='P') {
+                pat=(pat+at)%mod;
+            }
         }
-        System.out.print(str);
+
+        System.out.println(pat);
     }
+
+
 }
 
