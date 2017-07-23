@@ -1,3 +1,4 @@
+/*
 package yi.training;
 
 import java.util.ArrayList;
@@ -55,4 +56,4 @@ class Main implements Comparable<Main>{
     public String toString(){
         return n + " " + m + " " +average;
     }
-}
+}*/
