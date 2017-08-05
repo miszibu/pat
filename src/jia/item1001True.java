@@ -24,8 +24,8 @@ public class item1001True {
     static int minSend = Integer.MAX_VALUE;
     static int minTake = Integer.MAX_VALUE;
     static int minDistance = Integer.MAX_VALUE;
-    static ArrayList<Integer> curPath = new ArrayList<>();
-    static ArrayList<Integer> minPath = new ArrayList<>();
+    static ArrayList<Integer> curPath = new ArrayList<Integer>();
+    static ArrayList<Integer> minPath = new ArrayList<Integer>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -58,7 +58,7 @@ public class item1001True {
     }
 
     static public void changeValue() {
-        minPath = new ArrayList<>(curPath);//deep copy
+        minPath = new ArrayList<Integer>(curPath);//deep copy
         minDistance = curDistance;
         minSend = curSend;
         minTake = curBike;

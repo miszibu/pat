@@ -1,93 +1,60 @@
 package yi.training;
 
-import java.io.BufferedReader;
-        import java.io.IOException;
-        import java.io.InputStreamReader;
-        import java.util.*;
+import java.util.*;
 
-public class Main {
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer tokenizer;
-        //first line
-        int n = Integer.parseInt(reader.readLine());
-        AvlNode root = null;
-        tokenizer = new StringTokenizer(reader.readLine());
-        for (int i = 0; i != n; i++) {
-            int val = Integer.parseInt(tokenizer.nextToken());
-            root = insert(val, root);
-        }
-        System.out.println(root.val);
-    }
-
-    public static int height(AvlNode node) {
-        return node == null ? -1 : node.height;
-    }
-
-    public static boolean isBalanced(AvlNode node) {
-        return Math.abs(height(node.left) - height(node.right)) < 2;
-    }
-
-    public static AvlNode rotateLeft(AvlNode node) {
-        AvlNode tmp = node.left;
-        node.left = tmp.right;
-        tmp.right = node;
-        node.height = Math.max(height(node.left), height(node.right)) + 1;
-        tmp.height = Math.max(height(tmp.left), height(tmp.right)) + 1;
-        return tmp;
-    }
-
-    public static AvlNode rotateRight(AvlNode node) {
-        AvlNode tmp = node.right;
-        node.right = tmp.left;
-        tmp.left = node;
-        node.height = Math.max(height(node.left), height(node.right)) + 1;
-        tmp.height = Math.max(height(tmp.left), height(tmp.right)) + 1;
-        return tmp;
-    }
-
-    public static AvlNode doubleLeft(AvlNode node) {
-        node.left = rotateRight(node.left);
-        return rotateLeft(node);
-
-    }
-
-    public static AvlNode doubleRight(AvlNode node) {
-        node.right = rotateLeft(node.right);
-        return rotateRight(node);
-    }
-
-    public static AvlNode insert(int val, AvlNode root) {
-        if (root == null) {
-            return new AvlNode(val);
-        }
-        if (val > root.val) {
-            root.right = insert(val, root.right);
-            if (!isBalanced(root)) {
-                root = val > root.right.val ? rotateRight(root) : doubleRight(root);
+public class Main{
+    public static int getMax(String str,int nowAt){
+        int max=1;
+        if(nowAt-1>=0){
+            int low=nowAt-1,high=nowAt+1;
+            while(low>=0&&high<str.length()&&str.charAt(low)==str.charAt(high)){
+                low--;
+                high++;
             }
-        } else {
-            root.left = insert(val, root.left);
-            if (!isBalanced(root)) {
-                root = val < root.left.val ? rotateLeft(root) : doubleLeft(root);
+            int temp=high-low+1-2;
+            if(temp>max)
+                max=temp;
+
+            if(str.charAt(nowAt-1)==str.charAt(nowAt)){
+                low=nowAt-1;
+                high=nowAt;
+                while(low>=0&&high<str.length()&&str.charAt(low)==str.charAt(high)){
+                    low--;
+                    high++;
+                }
+                temp=high-low+1-2;
+                if(temp>max)
+                    max=temp;
             }
         }
-        root.height = Math.max(height(root.left), height(root.right)) + 1;
-        return root;
+        if(nowAt+1<str.length()){
+            int low=nowAt,high=nowAt+1;
+            while(low>=0&&high<str.length()&&str.charAt(low)==str.charAt(high)){
+                low--;
+                high++;
+            }
+            int temp=high-low+1-2;
+            if(temp>max)
+                max=temp;
+        }
+        return max;
     }
-
-    public static class AvlNode {
-
-        int val;
-        AvlNode left;
-        AvlNode right;
-        int height;
-
-        public AvlNode(int val) {
-            this.val = val;
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        while(sc.hasNextLine()){
+            String check=sc.nextLine();
+            int max=Integer.MIN_VALUE;
+            for(int idx=0;idx<check.length();idx++){
+                int temp=getMax(check,idx);
+                if(temp>max){
+                    max=temp;
+                    int a = (max-1)/2;
+                    for (int j =idx-a;j<idx+a;j++)
+                        System.out.print(check.charAt(j));
+                    System.out.println();
+                }
+            }
+            System.out.println(max);
         }
     }
 }
-
-
